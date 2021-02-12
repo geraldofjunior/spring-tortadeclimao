@@ -8,7 +8,6 @@ import br.com.contrategeraldo.TortaDeClimao.Entities.Town;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-
 public class TownController {
     ITownRepository townRepository;
 
@@ -24,13 +23,11 @@ public class TownController {
     @GetMapping("towns/{id}")
     public Town getRegisteredTown(@PathVariable("id") Long id) {
         return townRepository.findById(id).get();
-
     }
 
     @PostMapping("/towns/")
     public HttpStatus addTown(@RequestBody Town town) {
         townRepository.save(town);
-
         return HttpStatus.CREATED;
     }
 }
