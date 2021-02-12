@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class ForecastController {
@@ -23,8 +25,8 @@ public class ForecastController {
     }
 
     @GetMapping("forecasts/{townID}")
-    public Forecast getForecastByTownId(@PathVariable("townID") Long townID) {
-
+    public List<Forecast> getForecastByTownId(@PathVariable("townID") Long townID) {
+        return forecastRepository.findByTownId(townID);
     }
 
 }
