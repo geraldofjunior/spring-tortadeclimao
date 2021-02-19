@@ -4,21 +4,24 @@ import br.com.contrategeraldo.TortaDeClimao.Entities.Forecast;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class WeatherWebService {
-    private RestTemplateBuilder builder;
-    private RestTemplate template;
+public class WeatherWebService extends WebService {
 
     public WeatherWebService() {
-        this.builder = new RestTemplateBuilder();
-        this.template = this.builder.build();
+        super.builder = new RestTemplateBuilder();
+        super.template = super.builder.build();
+        super.apiAddress = "https://apiprevmet3.inmet.gov.br"; // REST INMETRO
     }
 
     @Bean
-    public Forecast getForecast(int woeid, RestTemplate template) throws Exception {
-        String url = "https://api.hgbrasil.com/weather?woeid=" + woeid;
-        return this.template.getForObject(url, Forecast.class);
+    public Forecast getForecast(int geoId) throws Exception {
+        String url = super.apiAddress + "/previsao/" + geoId;
+        return super.template.getForObject(url, Forecast.class);
+    }
+
+    @Bean
+    private Forecast getForecastFromApi(String parameter, String value) {
+        return null;
     }
 }
